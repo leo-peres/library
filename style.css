@@ -49,3 +49,13 @@ body {
 .library-entry-info div{
     margin-bottom: 4px;
 }
+
+.library-entry-remove-btn {
+    background-color: inherit;
+    background-image: url("./images/cross.svg");
+    background-size: cover;
+    border: 0;
+
+    grid-row: 1;
+    grid-column: 3;
+}

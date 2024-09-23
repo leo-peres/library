@@ -22,7 +22,7 @@ const library = document.querySelector(".library-div");
 
 //////////////////////////////////////////////
 
-const myLybrary = [];
+const myLibrary = [];
 
 //////////////////////////////////////////////
 
@@ -34,6 +34,8 @@ function Book (title, author, pages, read, index) {
     this.read = read;
     this.index = index;
 }
+
+Book.prototype.decrementIndex = function() {this.index--;};
 
 //////////////////////////////////////////////
 
@@ -47,35 +49,36 @@ function addBookToLibrary(evt) {
     pages = parseInt(pagesInput.value);
     read = readInput.checked;
 
-    let index = myLybrary.length;
+    let index = myLibrary.length;
     let newBook = new Book(title, author, pages, read, index);
-    myLybrary[index] = newBook;
+    myLibrary[index] = newBook;
 
-    addLibraryEntry(title, author, pages, read);
+    addLibraryEntry(newBook);
 
     addBookDialog.close();
 
 }
 
-function addLibraryEntry(title, author, pages, read) {
+function addLibraryEntry(newBook) {
 
     let newLibraryEntry = document.createElement("div");
-    newLibraryEntry.setAttribute("class", "library-entry");
+    newLibraryEntry.classList.add("library-entry");
+    newLibraryEntry.setAttribute("index", newBook.index);
 
     let newLibEntryInfo = document.createElement("div");
     newLibEntryInfo.setAttribute("class", "library-entry-info");
 
     let newTitle = document.createElement("div");
-    newTitle.innerText = "Title: " + title;
+    newTitle.innerText = "Title: " + newBook.title;
 
     let newAuthor = document.createElement("div");
-    newAuthor.innerText = "Author: " + author;
+    newAuthor.innerText = "Author: " + newBook.author;
 
     let newPages = document.createElement("div");
-    newPages.innerText = "Pages: " + pages;
+    newPages.innerText = "Pages: " + newBook.pages;
 
     let newRead = document.createElement("div");
-    newRead.innerText = read ? "Read" : "Not read";
+    newRead.innerText = newBook.read ? "Read" : "Not read";
 
     newLibEntryInfo.appendChild(newTitle);
     newLibEntryInfo.appendChild(newAuthor);
@@ -84,6 +87,34 @@ function addLibraryEntry(title, author, pages, read) {
 
     newLibraryEntry.appendChild(newLibEntryInfo);
 
+    let removeBtn = document.createElement("button");
+    removeBtn.classList.add("library-entry-remove-btn");
+    removeBtn.addEventListener("click", removeBook);
+    newLibraryEntry.appendChild(removeBtn);
+
     library.appendChild(newLibraryEntry);
+
+}
+
+function removeBook(evt) {
+
+    let libraryEntry = evt.target.parentElement;
+    let index = parseInt(libraryEntry.getAttribute("index"));
+
+    myLibrary.splice(index, 1);
+    for(let i = index; i < myLibrary.length; i++)
+        decrementIndex(i + 1);
+
+    libraryEntry.remove();
+
+}
+
+function decrementIndex(index) {
+
+    let libraryEntry = document.querySelector(`.library-entry[index="${index}"]`);
+    let book = myLibrary[index - 1];
+
+    libraryEntry.setAttribute("index", index - 1);
+    book.decrementIndex();
 
 }
