@@ -36,6 +36,7 @@ function Book (title, author, pages, read, index) {
 }
 
 Book.prototype.decrementIndex = function() {this.index--;};
+Book.prototype.toggleRead = function() {this.read = !this.read};
 
 //////////////////////////////////////////////
 
@@ -78,7 +79,10 @@ function addLibraryEntry(newBook) {
     newPages.innerText = "Pages: " + newBook.pages;
 
     let newRead = document.createElement("div");
-    newRead.innerText = newBook.read ? "Read" : "Not read";
+    //newRead.innerText = newBook.read ? "Read" : "Not read";
+    if(newBook.read)
+        newLibraryEntry.setAttribute("read", "");
+
 
     newLibEntryInfo.appendChild(newTitle);
     newLibEntryInfo.appendChild(newAuthor);
@@ -91,6 +95,15 @@ function addLibraryEntry(newBook) {
     removeBtn.classList.add("library-entry-remove-btn");
     removeBtn.addEventListener("click", removeBook);
     newLibraryEntry.appendChild(removeBtn);
+
+    let toggleReadBtn = document.createElement("button");
+    toggleReadBtn.classList.add("library-entry-toggle-read-btn");
+    toggleReadBtn.addEventListener("click", toggleRead);
+
+    let toggleReadSpan = document.createElement("span");
+    toggleReadBtn.appendChild(toggleReadSpan);
+
+    newLibraryEntry.appendChild(toggleReadBtn);
 
     library.appendChild(newLibraryEntry);
 
@@ -116,5 +129,19 @@ function decrementIndex(index) {
 
     libraryEntry.setAttribute("index", index - 1);
     book.decrementIndex();
+
+}
+
+function toggleRead(evt) {
+
+    let libraryEntry = evt.target.parentElement;
+    let index = parseInt(libraryEntry.getAttribute("index"));
+
+    if(libraryEntry.hasAttribute("read"))
+        libraryEntry.removeAttribute("read");
+    else
+        libraryEntry.setAttribute("read", "");
+
+    myLibrary[index].toggleRead();
 
 }

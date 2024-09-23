@@ -59,3 +59,32 @@ body {
     grid-row: 1;
     grid-column: 3;
 }
+
+.library-entry .library-entry-info>div:nth-child(4) {
+    color: red;
+}
+
+.library-entry .library-entry-info>div:nth-child(4)::after {
+    content: "Not read";
+}
+
+.library-entry[read] .library-entry-info>div:nth-child(4) {
+    color: green;
+}
+
+.library-entry[read] .library-entry-info>div:nth-child(4)::after {
+    content: "Read";
+}
+
+.library-entry-toggle-read-btn {
+    grid-row: 3;
+    grid-column: 2;;
+}
+
+.library-entry .library-entry-toggle-read-btn>span::after {
+    content: "Mark as read"
+}
+
+.library-entry[read] .library-entry-toggle-read-btn>span::after {
+    content: "Mark as not read"
+}
