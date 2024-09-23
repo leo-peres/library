@@ -24,39 +24,66 @@ const library = document.querySelector(".library-div");
 
 const myLybrary = [];
 
-function Book (title, author, pages, read) {
+//////////////////////////////////////////////
+
+
+function Book (title, author, pages, read, index) {
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.read = read;
+    this.index = index;
 }
+
+//////////////////////////////////////////////
+
 
 function addBookToLibrary(evt) {
 
     evt.preventDefault();
     
-    let newLibraryEntry = document.createElement("div");
+    title = titleInput.value; 
+    author = authorInput.value;
+    pages = parseInt(pagesInput.value);
+    read = readInput.checked;
 
-    let newTitle = document.createElement("p");
-    newTitle.innerText = "Title: " + titleInput.value;
+    let index = myLybrary.length;
+    let newBook = new Book(title, author, pages, read, index);
+    myLybrary[index] = newBook;
 
-    let newAuthor = document.createElement("p");
-    newAuthor.innerText = "Author: " + authorInput.value;
-
-    let newPages = document.createElement("p");
-    newPages.innerText = "Pages: " + pagesInput.value;
-
-    let newRead = document.createElement("p");
-    newRead.innerText = readInput.checked ? "Read" : "Not read"
-
-    newLibraryEntry.appendChild(newTitle);
-    newLibraryEntry.appendChild(newAuthor);
-    newLibraryEntry.appendChild(newPages);
-    newLibraryEntry.appendChild(newRead);
-
-    library.appendChild(newLibraryEntry);
+    addLibraryEntry(title, author, pages, read);
 
     addBookDialog.close();
 
 }
 
+function addLibraryEntry(title, author, pages, read) {
+
+    let newLibraryEntry = document.createElement("div");
+    newLibraryEntry.setAttribute("class", "library-entry");
+
+    let newLibEntryInfo = document.createElement("div");
+    newLibEntryInfo.setAttribute("class", "library-entry-info");
+
+    let newTitle = document.createElement("div");
+    newTitle.innerText = "Title: " + title;
+
+    let newAuthor = document.createElement("div");
+    newAuthor.innerText = "Author: " + author;
+
+    let newPages = document.createElement("div");
+    newPages.innerText = "Pages: " + pages;
+
+    let newRead = document.createElement("div");
+    newRead.innerText = read ? "Read" : "Not read";
+
+    newLibEntryInfo.appendChild(newTitle);
+    newLibEntryInfo.appendChild(newAuthor);
+    newLibEntryInfo.appendChild(newPages);
+    newLibEntryInfo.appendChild(newRead);
+
+    newLibraryEntry.appendChild(newLibEntryInfo);
+
+    library.appendChild(newLibraryEntry);
+
+}
