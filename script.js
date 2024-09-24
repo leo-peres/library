@@ -181,8 +181,8 @@ function showFullTextAux(evt) {
         text = target.innerText;
         text = text.split(/: (.*)/s).splice(1).join('');
 
-        mouseX = evt.pageX;
-        mouseY = evt.pageY;
+        mouseX = evt.x;
+        mouseY = evt.y;
 
         fullTextContainer.innerText = text;
         fullTextContainer.style.display = "block";
