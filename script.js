@@ -1,3 +1,5 @@
+const body = document.querySelector("body");
+
 const addBook = document.querySelector(".add-book");
 const addBookDialog = document.querySelector(".add-book-dialog");
 const confirmBtn = document.querySelector(".confirm-btn");
@@ -20,9 +22,14 @@ cancelBtn.addEventListener("click", () => {
 
 const library = document.querySelector(".library-div");
 
+const fullTextContainer = document.querySelector(".full-text-container");
+
 //////////////////////////////////////////////
 
 const myLibrary = [];
+
+let timeoutId;
+let fullTextDisplaying = false;
 
 //////////////////////////////////////////////
 
@@ -71,6 +78,9 @@ function addLibraryEntry(newBook) {
 
     let newTitle = document.createElement("div");
     newTitle.innerText = "Title: " + newBook.title;
+    newTitle.addEventListener("mouseenter", showFullTextEnter);
+    newTitle.addEventListener("mouseleave", showFullTextLeave);
+    newTitle.addEventListener("mousemove", showFullText);
 
     let newAuthor = document.createElement("div");
     newAuthor.innerText = "Author: " + newBook.author;
@@ -144,4 +154,49 @@ function toggleRead(evt) {
 
     myLibrary[index].toggleRead();
 
+}
+
+//////////////////////////////////////////////
+
+function showFullTextEnter() {
+    clearTimeout(timeoutId);
+}
+
+function showFullTextLeave() {
+    clearTimeout(timeoutId);
+    hideFullText();
+}
+
+function showFullText(evt) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(showFullTextAux, 500, evt);
+}
+
+function showFullTextAux(evt) {
+
+    if(!fullTextDisplaying) {
+
+        target = evt.target;
+
+        text = target.innerText;
+        text = text.split(/: (.*)/s).splice(1).join('');
+
+        mouseX = evt.pageX;
+        mouseY = evt.pageY;
+
+        fullTextContainer.innerText = text;
+        fullTextContainer.style.display = "block";
+        fullTextContainer.style.left = String(mouseX) + "px";
+        fullTextContainer.style.top = String(mouseY + 12) + "px";
+
+        fullTextDisplaying = true;
+
+    }
+
+}
+
+function hideFullText() {
+    fullTextContainer.innerText = "";
+    fullTextContainer.style.display = "none";
+    fullTextDisplaying = false;
 }

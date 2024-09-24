@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0 24px;
@@ -65,6 +69,10 @@ body {
 }
 
 .library-entry-info {
+    white-space: nowrap;
+    overflow: hidden;
+    padding-top: 8px;
+
     grid-row: 2;
     grid-column: 2 / 5;
 }
@@ -133,4 +141,13 @@ body {
 
 .library-entry[read] .library-entry-toggle-read-btn>span::after {
     content: "Mark as not read";
+}
+
+.full-text-container {
+    color: #fafafa;
+    font-size: 0.8rem;
+    background-color: rgb(24, 24, 27, 0.9);
+    padding: 4px;
+    display: none;
+    position: fixed;
 }
