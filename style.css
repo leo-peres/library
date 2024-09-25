@@ -108,6 +108,8 @@ button:hover {
 }
 
 .library-entry .library-entry-info>div:nth-child(4)::after {
+    font-size: 1.2rem;
+    font-weight: bold;
     content: "Not read";
 }
 
@@ -121,6 +123,7 @@ button:hover {
 
 .library-entry-toggle-read-btn {
     color: #fafafa;
+    font-weight: bold;
     border: 0;
 
     grid-row: 3;

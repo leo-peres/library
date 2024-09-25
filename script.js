@@ -77,22 +77,29 @@ function addLibraryEntry(newBook) {
     newLibEntryInfo.setAttribute("class", "library-entry-info");
 
     let newTitle = document.createElement("div");
-    newTitle.innerText = "Title: " + newBook.title;
+    let titleBold = document.createElement("b");
+    titleBold.innerText = "Title: ";
+    newTitle.appendChild(titleBold);
+    newTitle.append(newBook.title);
     newTitle.addEventListener("mouseenter", showFullTextEnter);
     newTitle.addEventListener("mouseleave", showFullTextLeave);
     newTitle.addEventListener("mousemove", showFullText);
 
     let newAuthor = document.createElement("div");
-    newAuthor.innerText = "Author: " + newBook.author;
+    let authorBold = document.createElement("b");
+    authorBold.innerText = "Author: "
+    newAuthor.appendChild(authorBold);
+    newAuthor.append(newBook.author);
 
     let newPages = document.createElement("div");
-    newPages.innerText = "Pages: " + newBook.pages;
+    let pagesBold = document.createElement("b");
+    pagesBold.innerText = "Nº of pages: ";
+    newPages.appendChild(pagesBold);
+    newPages.append(newBook.pages);
 
     let newRead = document.createElement("div");
-    //newRead.innerText = newBook.read ? "Read" : "Not read";
     if(newBook.read)
         newLibraryEntry.setAttribute("read", "");
-
 
     newLibEntryInfo.appendChild(newTitle);
     newLibEntryInfo.appendChild(newAuthor);
