@@ -33,17 +33,20 @@ let fullTextDisplaying = false;
 
 //////////////////////////////////////////////
 
+class Book {
 
-function Book (title, author, pages, read, index) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-    this.index = index;
+    constructor(title, author, pages, read, index) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+        this.index = index;
+    }
+
+    decrementIndex() {this.index--;}
+    toggleRead() {this.read = !this.read;}
+
 }
-
-Book.prototype.decrementIndex = function() {this.index--;};
-Book.prototype.toggleRead = function() {this.read = !this.read};
 
 //////////////////////////////////////////////
 
